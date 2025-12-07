@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+
+      <!-- 背景圆形 -->
+      <circle cx="128" cy="128" r="118" fill="#4f46e5" stroke="#3730a3" stroke-width="4" />
+
+      <!-- 书本/知识基础 -->
+      <path d="M80, 160 L176, 160 L176, 200 C176, 212 164, 220 128, 220 C92, 220 80, 212 80, 200 Z" fill="#818cf8" />
+      <path d="M80, 160 L80, 200 C80, 212 92, 220 128, 220 C164, 220 176, 212 176, 200 L176, 160" fill="none"
+            stroke="#3730a3" stroke-width="4" />
+
+      <!-- 书本细节（页数） -->
+      <path d="M96, 164 L96, 196 M112, 164 L112, 196 M128, 164 L128, 196 M144, 164 L144, 196 M160, 164 L160, 196"
+            stroke="#6366f1" stroke-width="2" />
+
+      <!-- 放大镜（提取的象征） -->
+      <circle cx="168" cy="108" r="32" fill="none" stroke="white" stroke-width="6" />
+      <line x1="192" y1="132" x2="224" y2="164" stroke="white" stroke-width="6" stroke-linecap="round" />
+
+      <!-- 学士帽（学生象征） -->
+      <rect x="96" y="60" width="64" height="16" rx="2" fill="#c7d2fe" />
+      <path d="M80, 76 L176, 76 L168, 92 L88, 92 Z" fill="#a5b4fc" />
+
+      <!-- 帽穗 -->
+      <circle cx="128" cy="76" r="4" fill="#fbbf24" />
+      <line x1="128" y1="76" x2="128" y2="92" stroke="#fbbf24" stroke-width="2" />
+
+      <!-- 数据流箭头（提取动作） -->
+      <path d="M60, 140 C40, 140 40, 120 60, 120 L90, 120 C110, 120 110, 140 90, 140 Z" fill="#34d399" />
+      <polygon points="90, 130 110, 130 100, 125" fill="#10b981" />
+      <polygon points="90, 130 110, 130 100, 135" fill="#10b981" />
+
+      <!-- 应用名称缩写 -->
+      <text x="128" y="40" text-anchor="middle" fill="white" font-family="Arial,  sans-serif" font-size="20"
+            font-weight="bold">
+            SE
+      </text>
+
+</svg>
