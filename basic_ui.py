@@ -1,7 +1,11 @@
 import sys
 import tkinter as tk
 
+from extract_ui import ExtractUI
+
 class BasicUI:
+    """基础用户界面"""
+    
     width, height = 800, 600
     x, y = 400, 100
     
@@ -14,14 +18,13 @@ class BasicUI:
         """构造函数"""
         
         self.create_root_window()
-        self.create_basic_component()
         
         self.protocol()
         
         self.window.mainloop()
     
     def create_root_window(self):
-        """主窗口"""
+        """创建主窗口"""
         
         self.window = tk.Tk()
         self.window.title("Student Extracter")
@@ -29,8 +32,10 @@ class BasicUI:
         self.window.resizable(False, False)
         self.window.iconbitmap(".\\icon.ico")
         self.window.configure(bg=self.colours["window_bg"])
+        
+        self.create_basic_components()
     
-    def create_basic_component(self):
+    def create_basic_components(self):
         """创建基本组件"""
         
         # 标签-标题-学生抽取器
@@ -113,13 +118,20 @@ class BasicUI:
     def enter_extract_ui(self):
         """进入抽取界面"""
         
-        pass
+        # 销毁主窗口
+        self.window.destroy()
+        
+        # 创建抽取窗口
+        ExtractUI()
+        
+        # 重新创建主窗口
+        self.__init__()
     
     def on_closing(self):
         """当窗口关闭时"""
         
+        self.window.destroy()
         sys.exit()
 
-while True:
+if __name__ == "__main__":
     p = BasicUI()
-    del p
