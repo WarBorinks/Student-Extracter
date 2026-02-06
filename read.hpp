@@ -1,35 +1,30 @@
-# ifndef SE_READ
-# define SE_READ
+#ifndef SE_READ
+#define SE_READ
 
-# include <fstream>
-# include <nlohmann/json.hpp>
-# include <stdexcept>
-# include <string>
+#include <fstream>
+#include <stdexcept>
+#include <string>
+
+#include <nlohmann/json.hpp>
 
 namespace se {
-using nlohmann::json;
-using std::ifstream;
-using std::ios;
-using std::runtime_error;
-using std::string;
-
-json read(const string& path) {
-    ifstream file(path);
+nlohmann::json read(const std::string& path) {
+    std::ifstream file(path);
 
     if (!file.is_open()) {
-        throw runtime_error("文件损坏！");
+        throw std::runtime_error("文件损坏！");
     }
     
-    string t;
-    file.seekg(0, ios::end);
+    std::string t;
+    file.seekg(0, std::ios::end);
     t.resize(file.tellg());
-    file.seekg(0, ios::beg);
+    file.seekg(0, std::ios::beg);
     file.read(&t[0], t.size());
 
-    json j = json::parse(t);
+    nlohmann::json j = nlohmann::json::parse(t);
 
     return j;
 }
 }
 
-# endif
+#endif
