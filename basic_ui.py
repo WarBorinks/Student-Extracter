@@ -17,7 +17,7 @@ class BasicUI:
         
         self.create_root_window()
         
-        self.protocol()
+        self.window.protocol("WM_DELETE_WINDOW", self.on_closing)
         
         self.window.mainloop()
     
@@ -40,7 +40,9 @@ class BasicUI:
             relx=0.5, rely=0.1, anchor="center"
         )
         
-        self.components["canvas_edit_extract_exit"] = tk.Canvas(self.window, bg=self.colours["window_bg"], highlightthickness=0)
+        self.components["canvas_edit_extract_exit"] = tk.Canvas(
+            self.window, bg=self.colours["window_bg"], highlightthickness=0
+        )
         self.components["canvas_edit_extract_exit"].place(
             relx=0.5, rely=0.5, width=310, height=310, anchor="center"
         )
@@ -73,9 +75,9 @@ class BasicUI:
             155, 155, text="敬请期待", font=("微软雅黑", 16)
         )
         
-    def protocol(self):
-        self.window.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.protocol()
         
+    def protocol(self):
         self.components["canvas_edit_extract_exit"].tag_bind(
             self.components["arc_button_edit"], "<Button-1>", lambda e: self.enter_edit_ui()
         )
@@ -101,7 +103,12 @@ class BasicUI:
         pass
     
     def enter_extract_ui(self):
-        ExtractUI(self.window, self.colours, self.components)
+        self.extract_ui = ExtractUI(self)
+    
+    def exit_extract_ui(self):
+        self.extract_ui.destroy()
+        del self.extract_ui
+        self.create_basic_components()
     
     def on_closing(self):
         self.window.destroy()

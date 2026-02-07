@@ -8,13 +8,14 @@
 #include <set>
 #include <stdexcept>
 #include <string>
+#include <vector>
 
 #include <nlohmann/json.hpp>
 
 #include "read.hpp"
 
 namespace se {
-int basic_extracter(const std::string& path) {
+std::vector<std::string> basic_extracter(const std::string& path) {
     nlohmann::json students = se::read(std::string("students/") + path);
 
     if (students.size() < 8) {
@@ -36,14 +37,7 @@ int basic_extracter(const std::string& path) {
         }
     }
 
-    std::ios::sync_with_stdio(false);
-    std::cout.tie(nullptr);
-
-    for (const std::string& name : selected) {
-        std::cout << name << "\n";
-    }
-
-    return 0;
+    return std::vector<std::string>(selected.begin(), selected.end());
 }
 }
 
