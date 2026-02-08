@@ -15,7 +15,7 @@
 #include "read.hpp"
 
 namespace se {
-std::vector<std::string> basic_extracter(const std::string& path) {
+std::vector<std::string> extract_students(const std::string& path) {
     nlohmann::json students = se::read(std::string("students/") + path);
 
     if (students.size() < 8) {
