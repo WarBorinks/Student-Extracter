@@ -1,9 +1,13 @@
-import asyncio, random
+import random, time
 import tkinter as tk
 
-import basic_extracter
+from basic_extracter import extract_students
 
 class ExtractUI:
+    keys = [
+        "nw", "w", "sw", "s", "se", "e", "ne", "n"
+    ]
+    
     def __init__(self, basic_ui):
         self.basic_ui = basic_ui
         self.window = basic_ui.window
@@ -98,57 +102,63 @@ class ExtractUI:
         )
         
         self.components["canvas_extract"].tag_bind(
-            self.components["rect_button_extract"], "<Button-1>", lambda e: asyncio.run(self.start_to_extract())
+            self.components["rect_button_extract"], "<Button-1>", lambda e: self.start_to_extract()
         )
         self.components["canvas_extract"].tag_bind(
-            self.components["rect_button_extract_text"], "<Button-1>", lambda e: asyncio.run(self.start_to_extract())
+            self.components["rect_button_extract_text"], "<Button-1>", lambda e: self.start_to_extract()
         )
     
-    async def start_to_extract(self):
-        students = basic_extracter.extract_students("default.students")
+    def start_to_extract(self):
+        self.students = extract_students("default.students")
         i = 0
         
         
-        keys = list(self.components["rect_label_name"].keys())
         self.components["rect_label_name_text"] = {}
         for key in self.components["rect_label_name"].keys():
-            x1, x2, y1, y2 = self.components["canvas_extract"].coords(self.components["rect_label_name"][key])
+            x1, y1, x2, y2 = self.components["canvas_extract"].coords(self.components["rect_label_name"][key])
             x, y = (x1 + x2) / 2, (y1 + y2) / 2
             self.components["rect_label_name_text"][key] = self.components["canvas_extract"].create_text(
-                x, y, text=students[i], font=("微软雅黑", 16)
+                x, y, text=self.students[i], font=("微软雅黑", 16)
             )
             i += 1
             self.components["canvas_extract"].itemconfig(self.components["rect_label_name_text"][key], state="hidden")
         del i
+    
+        self.name_index, self.animation_time, self.animation_count, self.extracted_student = 0, 1.5, 0, ""
+        self.extract_animation()
+    
+    def extract_animation(self):
+        last_index = 7 if self.name_index == 0 else self.name_index - 1
+        self.components["canvas_extract"].itemconfig(
+            self.components["rect_label_name"][self.keys[last_index]], fill="#4286A3"
+        )
+        self.components["canvas_extract"].itemconfig(
+            self.components["rect_label_name_text"][self.keys[last_index]], state="hidden"
+        )
         
-        l, i, t, cnt = len(keys), 0, 2, 0
-        while t <= 2:
-            self.components["canvas_extract"].itemconfig(
-                self.components["rect_label_name"][keys[i]], fill="#EEEE10"
-            )
-            self.components["canvas_extract"].itemconfig(
-                self.components["rect_label_name_text"][keys[i]], state="normal"
-            )
-            
-            await asyncio.sleep(t)
-            t = self.get_wait_time(t, cnt)
-            cnt += 1
-            
-            self.components["canvas_extract"].itemconfig(
-                self.components["rect_label_name"][keys[i]], fill="#4286A3"
-            )
-            self.components["canvas_extract"].itemconfig(
-                self.components["rect_label_name_text"][keys[i]], state="hidden"
-            )
-            i = (i + 1) % l
+        if self.animation_time > 2:
+            self.extracted_student = self.students[self.name_index]
+            return
         
-        extracted_name = students[i]
+        key = self.keys[self.name_index]
+        self.components["canvas_extract"].itemconfig(
+            self.components["rect_label_name"][key], fill="#C41DD3"
+        )
+        self.components["canvas_extract"].itemconfig(
+            self.components["rect_label_name_text"][key], state="normal"
+        )
+        
+        self.name_index = (self.name_index + 1) % 8
+        self.animation_count += 1
+        self.animation_time = self.get_wait_time(self.animation_time, self.animation_count)
+        
+        self.window.after(int(self.animation_time * 1000), self.extract_animation)
     
     def get_wait_time(self, t, cnt):
         if cnt > 64:
-            return t * random.uniform(0.1, 0.8)
-        else:
             return t * random.uniform(1.1, 1.3)
+        else:
+            return t * random.uniform(0.1, 0.8)
 
 if __name__ == "__main__" or __name__ != "__main__":
     pass
