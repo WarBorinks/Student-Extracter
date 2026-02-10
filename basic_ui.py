@@ -1,6 +1,7 @@
 import sys
 import tkinter as tk
 
+from edit_ui import EditUI
 from extract_ui import ExtractUI
 
 class BasicUI:
@@ -100,7 +101,12 @@ class BasicUI:
         )
     
     def enter_edit_ui(self):
-        pass
+        self.edit_ui = EditUI(self)
+    
+    def exit_edit_ui(self):
+        self.edit_ui.destroy()
+        del self.edit_ui
+        self.create_basic_components()
     
     def enter_extract_ui(self):
         self.extract_ui = ExtractUI(self)
