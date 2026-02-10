@@ -15,8 +15,8 @@
 #include "read.hpp"
 
 namespace se {
-std::vector<std::string> extract_students(const std::string& path) {
-    nlohmann::json students = se::read(std::string("students/") + path);
+std::vector<std::string> extract_students() {
+    nlohmann::json students = se::read("students/default.students");
 
     if (students.size() < 8) {
         throw std::runtime_error("学生人数不足 8 人！");

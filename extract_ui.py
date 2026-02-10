@@ -109,7 +109,7 @@ class ExtractUI:
         )
     
     def start_to_extract(self):
-        self.students = extract_students("default.students")
+        self.students = extract_students()
         i = 0
         
         
