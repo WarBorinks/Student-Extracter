@@ -12,11 +12,11 @@
 
 #include <nlohmann/json.hpp>
 
-#include "read.hpp"
+#include "reader.hpp"
 
 namespace se {
-std::vector<std::string> extract_students() {
-    nlohmann::json students = se::read("students/default.students");
+std::vector<std::string> extract_students(const std::string& path) {
+    nlohmann::json students = se::read(path);
 
     if (students.size() < 8) {
         throw std::runtime_error("学生人数不足 8 人！");
