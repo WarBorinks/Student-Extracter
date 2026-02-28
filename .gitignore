@@ -1,4 +1,5 @@
 __cmake__/
+__release__/
 __pycache__/
 .vscode/
 build/
