@@ -1,7 +1,7 @@
-import random, time
+import random
 import tkinter as tk
 
-from basic_extracter import extract_students
+from pyd_module import extract_students
 
 class ExtractUI:
     keys = [
@@ -11,6 +11,7 @@ class ExtractUI:
     def __init__(self, basic_ui):
         self.basic_ui = basic_ui
         self.window = basic_ui.window
+        self.settings = basic_ui.settings
         self.colours = basic_ui.colours
         self.components = basic_ui.components
         
@@ -109,9 +110,8 @@ class ExtractUI:
         )
     
     def start_to_extract(self):
-        self.students = extract_students()
+        self.students = extract_students(self.settings["default"])
         i = 0
-        
         
         self.components["rect_label_name_text"] = {}
         for key in self.components["rect_label_name"].keys():
@@ -252,5 +252,3 @@ class ExtractUI:
         self.destroy()
         self.create_extract_components()
 
-if __name__ == "__main__" or __name__ != "__main__":
-    pass

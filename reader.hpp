@@ -1,5 +1,5 @@
-#ifndef SE_READ
-#define SE_READ
+#ifndef SE_READER
+#define SE_READER
 
 #include <fstream>
 #include <stdexcept>
@@ -8,7 +8,11 @@
 #include <nlohmann/json.hpp>
 
 namespace se {
-nlohmann::json read(const std::string& path) {
+nlohmann::json read(std::string path) {
+    if (path[0] == '.') {
+        path = "../students" + path.substr(1);
+    }
+
     std::ifstream file(path);
 
     if (!file.is_open()) {

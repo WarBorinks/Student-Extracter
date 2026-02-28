@@ -1,6 +1,8 @@
 import sys
 import tkinter as tk
 
+from pyd_module import read
+
 from edit_ui import EditUI
 from extract_ui import ExtractUI
 
@@ -8,15 +10,21 @@ class BasicUI:
     width, height = 800, 600
     x, y = 400, 100
     
+    settings = read("./settings.json")
+    
     colours = {
         "window_bg": "#8FD8EB"
     }
     components = {}
     
+    not_save = False
+    
     def __init__(self):
         """构造函数"""
         
         self.create_root_window()
+        
+        self.create_basic_components()
         
         self.window.protocol("WM_DELETE_WINDOW", self.on_closing)
         
@@ -28,10 +36,8 @@ class BasicUI:
         self.window.title("Student Extracter")
         self.window.geometry(f"{self.width}x{self.height}+{self.x}+{self.y}")
         self.window.resizable(False, False)
-        self.window.iconbitmap(".\\icon.ico")
+        self.window.iconbitmap("..\\resources\\icon.ico")
         self.window.configure(bg=self.colours["window_bg"])
-        
-        self.create_basic_components()
     
     def create_basic_components(self):
         self.components["label_title_studentextracter"] = tk.Label(
@@ -102,9 +108,13 @@ class BasicUI:
     
     def enter_edit_ui(self):
         self.edit_ui = EditUI(self)
+        self.not_save = True
     
     def exit_edit_ui(self):
+        self.edit_ui.save_data()
+        
         self.edit_ui.destroy()
+        self.edit_ui.resize_window(self.width, self.height)
         del self.edit_ui
         self.create_basic_components()
     
@@ -117,6 +127,9 @@ class BasicUI:
         self.create_basic_components()
     
     def on_closing(self):
+        if self.not_save:
+            self.edit_ui.save_data()
+        
         self.window.destroy()
         sys.exit()
 
