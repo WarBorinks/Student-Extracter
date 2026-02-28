@@ -132,6 +132,3 @@ class BasicUI:
         
         self.window.destroy()
         sys.exit()
-
-if __name__ == "__main__":
-    p = BasicUI()
