@@ -1,7 +1,5 @@
-__cmake__/
-__msi__/
-__release__/
-__pycache__/
+__*__/
+
 .vscode/
 build/
 dist/
