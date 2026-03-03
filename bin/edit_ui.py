@@ -4,7 +4,7 @@ import tkinter as tk
 from tkinter import filedialog
 from tkinter import ttk
 
-from pyd_module import read, write
+from helper import read, write
 
 from choose_ui import ChooseUI
 
@@ -347,6 +347,8 @@ class EditUI:
         self.window.after(1000, lambda: rename("存档"))
     
     def on_load(self):
+        self.save_data()
+        
         self.choose_ui = ChooseUI(self)
     
     def exit_choose_ui(self):
@@ -357,6 +359,8 @@ class EditUI:
         self.refresh_data()
         self.refresh_table()
         self.refresh_index()
+        
+        self.basic_ui.not_save = True
     
     def on_edit(self, pos):
         col = self.components["tree_table"].identify_column(pos.x)

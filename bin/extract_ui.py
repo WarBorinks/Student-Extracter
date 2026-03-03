@@ -1,7 +1,7 @@
 import random
 import tkinter as tk
 
-from pyd_module import extract_students
+from helper import extract_students, read
 
 class ExtractUI:
     keys = [
@@ -110,7 +110,7 @@ class ExtractUI:
         )
     
     def start_to_extract(self):
-        self.students = extract_students(self.settings["default"])
+        self.students = extract_students(read(self.settings["default"]))
         i = 0
         
         self.components["rect_label_name_text"] = {}

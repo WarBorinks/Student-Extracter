@@ -9,10 +9,6 @@
 
 namespace se {
 void write(std::string path, const nlohmann::json& j, const bool students) {
-    if (path[0] == '.') {
-        path = "../students" + path.substr(1);
-    }
-
     std::string data;
 
     if (students) {

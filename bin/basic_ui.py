@@ -1,7 +1,7 @@
 import sys
 import tkinter as tk
 
-from pyd_module import read
+from helper import read
 
 from edit_ui import EditUI
 from extract_ui import ExtractUI

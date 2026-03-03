@@ -15,9 +15,7 @@
 #include "reader.hpp"
 
 namespace se {
-std::vector<std::string> extract_students(const std::string& path) {
-    nlohmann::json students = se::read(path);
-
+std::vector<std::string> extract_students(const std::map<std::string, double>& students) {
     if (students.size() < 8) {
         throw std::runtime_error("学生人数不足 8 人！");
     }
@@ -25,7 +23,7 @@ std::vector<std::string> extract_students(const std::string& path) {
     srand(time(nullptr));
     std::set<std::string> selected;
     while (selected.size() < 8) {
-        for (const auto& [name, prob] : students.items()) {
+        for (const auto& [name, prob] : students) {
             double x = (double)(rand() % 1000) / 1000;
             if (x < prob) {
                 selected.insert(name);

@@ -9,10 +9,6 @@
 
 namespace se {
 nlohmann::json read(std::string path) {
-    if (path[0] == '.') {
-        path = "../students" + path.substr(1);
-    }
-
     std::ifstream file(path);
 
     if (!file.is_open()) {
